@@ -1,22 +1,23 @@
 package backend.etec.dto
 
-import jakarta.validation.constraints.DecimalMin
-import jakarta.validation.constraints.Min
 import jakarta.validation.constraints.NotBlank
 import jakarta.validation.constraints.NotNull
-import jakarta.validation.constraints.Size
+import jakarta.validation.constraints.Positive
+import jakarta.validation.constraints.PositiveOrZero
 import java.math.BigDecimal
 
 data class ProductoRequest(
-    @field:NotBlank
-    @field:Size(min = 1, max = 120)
+    @field:NotBlank(message = "El nombre no puede estar vacío")
     val nombre: String,
 
-    @field:NotNull
-    @field:DecimalMin(value = "0.0", inclusive = true)
+    @field:NotBlank(message = "La descripción no puede estar vacía")
+    val descripcion: String,
+
+    @field:NotNull(message = "El precio es obligatorio")
+    @field:Positive(message = "El precio debe ser mayor a cero")
     val precio: BigDecimal,
 
-    @field:NotNull
-    @field:Min(0)
-    val stock: Int,
+    @field:NotNull(message = "El stock es obligatorio")
+    @field:PositiveOrZero(message = "El stock no puede ser negativo")
+    val stock: Int
 )

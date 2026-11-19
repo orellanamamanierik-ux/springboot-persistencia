@@ -1,26 +1,13 @@
 package backend.etec.dto
 
-import backend.etec.entity.Producto
-import tools.jackson.databind.annotation.JsonSerialize
-import tools.jackson.databind.ser.std.ToStringSerializer
+import com.fasterxml.jackson.databind.annotation.JsonSerialize
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer
 import java.math.BigDecimal
 
 data class ProductoResponse(
-    val id: Long,
+    val id: Long?,
     val nombre: String,
-
-    @JsonSerialize(using = ToStringSerializer::class)
+    val descripcion: String,
     val precio: BigDecimal,
-
-    val stock: Int,
-) {
-    companion object {
-        fun fromEntity(p: Producto): ProductoResponse =
-            ProductoResponse(
-                id = p.id ?: 0L,
-                nombre = p.nombre,
-                precio = p.precio,
-                stock = p.stock,
-            )
-    }
-}
+    val stock: Int
+)
